@@ -62,7 +62,7 @@ Return this JSON:
         self,
         content: str,
         skill_name: str,
-        skill_version: str = 'unknown',
+        skill_version: str = "unknown",
     ) -> Optional[dict]:
         """Normalize documentation to structured skill.
 
@@ -75,15 +75,15 @@ Return this JSON:
             Normalized skill dict or None on failure
         """
         if not content:
-            print(f'[Normalize] No content provided for {skill_name}')
+            print(f"[Normalize] No content provided for {skill_name}")
             return None
 
         # Truncate very long content to fit token limits
         max_chars = 50000
         if len(content) > max_chars:
-            content = content[:max_chars] + '\n\n[... content truncated ...]'
+            content = content[:max_chars] + "\n\n[... content truncated ...]"
             if self.verbose:
-                print(f'[Normalize] Content truncated to {max_chars} chars')
+                print(f"[Normalize] Content truncated to {max_chars} chars")
 
         # Create user prompt
         user_prompt = f"""Extract best practices for {skill_name} from this documentation:
@@ -95,47 +95,49 @@ Return this JSON:
 Generate normalized JSON for {skill_name}."""
 
         if self.verbose:
-            print(f'[Normalize] Calling LLM for {skill_name}...')
+            print(f"[Normalize] Calling LLM for {skill_name}...")
 
         # Call LLM
-        response_json = self.llm.generate_json(user_prompt, system_prompt=self.SYSTEM_PROMPT)
+        response_json = self.llm.generate_json(
+            user_prompt, system_prompt=self.SYSTEM_PROMPT
+        )
 
         if not response_json:
-            print(f'[Normalize] LLM failed or returned invalid JSON for {skill_name}')
+            print(f"[Normalize] LLM failed or returned invalid JSON for {skill_name}")
             return None
 
         # Validate JSON schema
         valid, errors = self.validator.validate_json_schema(response_json)
         if not valid:
-            print(f'[Normalize] Schema validation failed for {skill_name}:')
+            print(f"[Normalize] Schema validation failed for {skill_name}:")
             for error in errors:
-                print(f'  - {error}')
+                print(f"  - {error}")
             return None
 
         # Post-process: add metadata
         normalized = {
             **response_json,
-            'version': skill_version,
-            'last_updated': datetime.now().isoformat() + 'Z',
-            'sources': [],  # Will be filled by caller
+            "version": skill_version,
+            "last_updated": datetime.now().isoformat() + "Z",
+            "sources": [],  # Will be filled by caller
         }
 
         # Full validation
         is_valid, val_errors, val_warnings = self.validator.validate_skill(normalized)
 
         if val_errors:
-            print(f'[Normalize] Content validation failed for {skill_name}:')
+            print(f"[Normalize] Content validation failed for {skill_name}:")
             for error in val_errors:
-                print(f'  - {error}')
+                print(f"  - {error}")
             return None
 
         if val_warnings and self.verbose:
-            print(f'[Normalize] Warnings for {skill_name}:')
+            print(f"[Normalize] Warnings for {skill_name}:")
             for warning in val_warnings[:3]:
-                print(f'  - {warning}')
+                print(f"  - {warning}")
 
         if self.verbose:
-            print(f'[Normalize] Successfully normalized {skill_name}')
+            print(f"[Normalize] Successfully normalized {skill_name}")
 
         return normalized
 
@@ -149,86 +151,86 @@ Generate normalized JSON for {skill_name}."""
         Returns:
             Markdown content
         """
-        skill['sources'] = sources
+        skill["sources"] = sources
 
         # Create frontmatter
-        md = '---\n'
+        md = "---\n"
         md += f'name: {skill.get("name", "Unknown")}\n'
         md += f'version: {skill.get("version", "unknown")}\n'
         md += f'domains: {json.dumps(skill.get("domains", ["general"]))}\n'
         md += f'lastGenerated: {skill.get("last_updated", "")}\n'
-        md += '---\n\n'
+        md += "---\n\n"
 
         # Create content
         md += f'# Skill: {skill.get("name", "Unknown")}\n\n'
 
         # Purpose
-        if 'purpose' in skill:
+        if "purpose" in skill:
             md += f'## Purpose\n{skill["purpose"]}\n\n'
 
         # Version
-        if 'version' in skill:
-            version_note = skill.get('version_notes', '')
+        if "version" in skill:
+            version_note = skill.get("version_notes", "")
             version_text = f'{skill["version"]}'
             if version_note:
-                version_text += f'. {version_note}'
-            md += f'## Version\n{version_text}\n\n'
+                version_text += f". {version_note}"
+            md += f"## Version\n{version_text}\n\n"
 
         # Principles
-        if 'principles' in skill and skill['principles']:
-            md += '## Principles\n'
-            for principle in skill['principles']:
-                md += f'- {principle}\n'
-            md += '\n'
+        if "principles" in skill and skill["principles"]:
+            md += "## Principles\n"
+            for principle in skill["principles"]:
+                md += f"- {principle}\n"
+            md += "\n"
 
         # Mandatory Rules
-        if 'rules' in skill and skill['rules']:
-            md += '## Mandatory Rules\n'
-            for rule in skill['rules']:
-                md += f'- {rule}\n'
-            md += '\n'
+        if "rules" in skill and skill["rules"]:
+            md += "## Mandatory Rules\n"
+            for rule in skill["rules"]:
+                md += f"- {rule}\n"
+            md += "\n"
 
         # Recommended Patterns
-        if 'patterns' in skill and skill['patterns']:
-            md += '## Recommended Patterns\n'
-            for pattern in skill['patterns']:
-                md += f'- {pattern}\n'
-            md += '\n'
+        if "patterns" in skill and skill["patterns"]:
+            md += "## Recommended Patterns\n"
+            for pattern in skill["patterns"]:
+                md += f"- {pattern}\n"
+            md += "\n"
 
         # Anti-Patterns
-        if 'anti_patterns' in skill and skill['anti_patterns']:
-            md += '## Anti-Patterns\n'
-            for anti in skill['anti_patterns']:
-                md += f'- {anti}\n'
-            md += '\n'
+        if "anti_patterns" in skill and skill["anti_patterns"]:
+            md += "## Anti-Patterns\n"
+            for anti in skill["anti_patterns"]:
+                md += f"- {anti}\n"
+            md += "\n"
 
         # Security
-        if 'security' in skill and skill['security']:
-            md += '## Security\n'
-            for item in skill['security']:
-                md += f'- {item}\n'
-            md += '\n'
+        if "security" in skill and skill["security"]:
+            md += "## Security\n"
+            for item in skill["security"]:
+                md += f"- {item}\n"
+            md += "\n"
 
         # Performance
-        if 'performance' in skill and skill['performance']:
-            md += '## Performance\n'
-            for item in skill['performance']:
-                md += f'- {item}\n'
-            md += '\n'
+        if "performance" in skill and skill["performance"]:
+            md += "## Performance\n"
+            for item in skill["performance"]:
+                md += f"- {item}\n"
+            md += "\n"
 
         # Tooling
-        if 'tooling' in skill and skill['tooling']:
-            md += '## Tooling\n'
-            for item in skill['tooling']:
-                md += f'- {item}\n'
-            md += '\n'
+        if "tooling" in skill and skill["tooling"]:
+            md += "## Tooling\n"
+            for item in skill["tooling"]:
+                md += f"- {item}\n"
+            md += "\n"
 
         # Last-Updated
         md += f'## Last-Updated\n{skill.get("last_updated", "unknown")}\n\n'
 
         # Sources
-        md += '## Sources\n'
+        md += "## Sources\n"
         for source in sources:
-            md += f'- {source}\n'
+            md += f"- {source}\n"
 
         return md

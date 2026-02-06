@@ -1,1 +1,5 @@
-{"skill": "test-skill", "version": "1.0.0", "sources": [{"type": "url", "url": "https://example.com"}]}
+{
+  "skill": "test-skill",
+  "version": "1.0.0",
+  "sources": [{ "type": "url", "url": "https://example.com" }]
+}

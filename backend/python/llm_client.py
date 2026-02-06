@@ -21,7 +21,9 @@ class LLMClient:
         self.verbose = verbose
 
         if self.verbose:
-            print(f'[LLM] Initialized: {self.config.llm_model} @ {self.config.llm_base_url}')
+            print(
+                f"[LLM] Initialized: {self.config.llm_model} @ {self.config.llm_base_url}"
+            )
 
     def call(
         self,
@@ -42,57 +44,61 @@ class LLMClient:
             LLM response text or None on failure
         """
         headers = {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         }
 
         # Only add API key if configured to send it
         if self.config.llm_send_api_key and self.config.llm_api_key:
-            headers['Authorization'] = f'Bearer {self.config.llm_api_key}'
+            headers["Authorization"] = f"Bearer {self.config.llm_api_key}"
 
         payload = {
-            'model': self.config.llm_model,
-            'messages': [
-                {'role': 'system', 'content': system_prompt},
-                {'role': 'user', 'content': user_message},
+            "model": self.config.llm_model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message},
             ],
-            'temperature': 0.2,  # Low temp for determinism
-            'max_tokens': 4096,
+            "temperature": 0.2,  # Low temp for determinism
+            "max_tokens": 4096,
         }
 
         # Request JSON response format if supported
-        if 'claude' in self.config.llm_model.lower():
-            payload['response_format'] = {'type': 'json_object'}
+        if "claude" in self.config.llm_model.lower():
+            payload["response_format"] = {"type": "json_object"}
 
-        url = f'{self.config.llm_base_url}/chat/completions'
+        url = f"{self.config.llm_base_url}/chat/completions"
 
         for attempt in range(max_retries):
             try:
                 if self.verbose:
-                    print(f'[LLM] Request attempt {attempt + 1}/{max_retries}...')
+                    print(f"[LLM] Request attempt {attempt + 1}/{max_retries}...")
 
-                response = requests.post(url, json=payload, headers=headers, timeout=timeout)
+                response = requests.post(
+                    url, json=payload, headers=headers, timeout=timeout
+                )
                 response.raise_for_status()
 
                 data = response.json()
-                content = data.get('choices', [{}])[0].get('message', {}).get('content', '')
+                content = (
+                    data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                )
 
                 if self.verbose:
-                    print(f'[LLM] Response received ({len(content)} chars)')
+                    print(f"[LLM] Response received ({len(content)} chars)")
 
                 return content
 
             except requests.exceptions.RequestException as e:
                 if self.verbose:
-                    print(f'[LLM] Error on attempt {attempt + 1}: {e}')
+                    print(f"[LLM] Error on attempt {attempt + 1}: {e}")
 
                 if attempt < max_retries - 1:
                     # Exponential backoff: 2s, 4s, 8s
-                    backoff = 2 ** attempt
+                    backoff = 2**attempt
                     if self.verbose:
-                        print(f'[LLM] Retrying in {backoff}s...')
+                        print(f"[LLM] Retrying in {backoff}s...")
                     time.sleep(backoff)
                 else:
-                    print(f'[LLM] Failed after {max_retries} attempts')
+                    print(f"[LLM] Failed after {max_retries} attempts")
                     return None
 
         return None
@@ -115,9 +121,9 @@ class LLMClient:
         """
         if system_prompt is None:
             system_prompt = (
-                'You are a technical documentation expert. '
-                'Extract and normalize information into valid JSON. '
-                'Return ONLY valid JSON, no markdown or extra text.'
+                "You are a technical documentation expert. "
+                "Extract and normalize information into valid JSON. "
+                "Return ONLY valid JSON, no markdown or extra text."
             )
 
         response = self.call(system_prompt, prompt, max_retries)
@@ -127,14 +133,14 @@ class LLMClient:
 
         try:
             # Remove markdown code blocks if present
-            if response.startswith('```json'):
+            if response.startswith("```json"):
                 response = response[7:]
-            if response.endswith('```'):
+            if response.endswith("```"):
                 response = response[:-3]
 
             return json.loads(response.strip())
         except json.JSONDecodeError as e:
-            print(f'[LLM] JSON parse error: {e}')
+            print(f"[LLM] JSON parse error: {e}")
             if self.verbose:
-                print(f'[LLM] Raw response: {response[:200]}...')
+                print(f"[LLM] Raw response: {response[:200]}...")
             return None

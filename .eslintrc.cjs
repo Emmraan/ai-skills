@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   root: true,
   env: {
     node: true,
@@ -17,5 +17,15 @@ export default {
     '@typescript-eslint/no-explicit-any': 'warn',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
-  ignorePatterns: ['dist', 'node_modules', 'build', '**/*.d.ts'],
+  ignorePatterns: [
+    'dist',
+    'node_modules',
+    'build',
+    '**/*.d.ts',
+    'venv',
+    '.venv',
+    'backend/python/venv',
+    'backend/python/venv/**',
+    '**/*.js',
+  ],
 };

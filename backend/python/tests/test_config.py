@@ -46,7 +46,7 @@ class TestConfig:
         is_valid, errors = config.validate()
 
         assert is_valid is False
-        assert any('LLM_BASE_URL' in str(e) for e in errors)
+        assert any("LLM_BASE_URL" in str(e) for e in errors)
 
     def test_config_validate_missing_github_token(self):
         """Test Config.validate() accepts missing GitHub token."""
