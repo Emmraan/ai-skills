@@ -74,8 +74,9 @@ ai-skills/
 - Node.js 18+
 - pnpm 9.0+
 - Python 3.11+
+- Python Virtual Environment (Recommended)
 
-### Setup
+### Setup Node and Python(Backend)
 
 ```bash
 # Install dependencies
@@ -92,6 +93,25 @@ pnpm test
 
 # Format code
 pnpm format
+
+#====================
+
+# Python Setup
+cd backend/python
+
+Linux/MacOS: virtualenv -p /usr/bin/python3 venv
+#OR
+Windows: python -m venv venv
+
+# For activate:
+Windows: .\venv\Scripts\activate
+Linux/MacOS: source venv/bin/activate
+
+# Install Packages
+pip install -r requirements.txt --no-build-isolation
+
+# Run Tests
+python -m pytest tests/
 ```
 
 ### Environment Variables

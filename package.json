@@ -1,12 +1,12 @@
 {
   "name": "ai-skills",
-  "version": "0.0.1",
-  "description": "Auto-updating, framework-agnostic, production-grade SKILLS.md files for AI agents",
+  "version": "1.0.0",
+  "description": "Auto-updating, framework-agnostic, production-grade SKILLS.md files for AI agents.",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=18.0.0",
-    "pnpm": ">=9.0.0"
+    "pnpm": ">=10.0.0"
   },
   "scripts": {
     "dev": "pnpm --filter=@ai-skills/cli dev",
