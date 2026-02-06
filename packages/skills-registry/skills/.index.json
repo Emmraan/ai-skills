@@ -1,0 +1,34 @@
+{
+  "skills": {
+    "react": {
+      "version": "18.2.0",
+      "domains": ["frontend", "ui", "frameworks"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    },
+    "vue": {
+      "version": "3.4.0",
+      "domains": ["frontend", "ui", "frameworks"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    },
+    "python": {
+      "version": "3.11",
+      "domains": ["general", "backend", "languages"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    },
+    "typescript": {
+      "version": "5.3.0",
+      "domains": ["languages", "types", "tools"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    },
+    "nodejs": {
+      "version": "20.10.0",
+      "domains": ["backend", "runtime", "languages"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    },
+    "testing": {
+      "version": "1.0.0",
+      "domains": ["testing", "quality", "practices"],
+      "lastGenerated": "2026-02-06T00:00:00Z"
+    }
+  }
+}

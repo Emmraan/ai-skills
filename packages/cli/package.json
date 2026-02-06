@@ -1,0 +1,30 @@
+{
+  "name": "@ai-skills/cli",
+  "version": "0.0.1",
+  "description": "CLI tool for installing AI Skills across agent platforms",
+  "type": "module",
+  "bin": {
+    "skills": "./dist/bin/skills.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json && chmod +x dist/bin/skills.js",
+    "dev": "tsx src/bin/skills.ts",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ai-skills/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "vitest": "^1.1.0"
+  }
+}

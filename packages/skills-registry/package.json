@@ -1,0 +1,14 @@
+{
+  "name": "@ai-skills/skills-registry",
+  "version": "0.0.1",
+  "description": "Production-grade SKILLS.md files registry for AI agents",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./skills/.index.json"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-all-skills.js"
+  },
+  "devDependencies": {}
+}

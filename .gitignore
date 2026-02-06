@@ -1,0 +1,140 @@
+####################################
+# Root / Monorepo
+####################################
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+####################################
+# Node.js / pnpm
+####################################
+
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+
+dist/
+build/
+out/
+coverage/
+
+# CLI build outputs
+packages/**/dist/
+packages/**/build/
+
+# Temporary transpiled JS
+*.tsbuildinfo
+
+####################################
+# Python
+####################################
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.venv/
+venv/
+env/
+ENV/
+
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+
+####################################
+# Python build artifacts
+####################################
+
+backend/**/dist/
+backend/**/build/
+backend/**/*.egg-info/
+
+####################################
+# Virtual environments per package
+####################################
+
+packages/**/.venv/
+plans/
+
+####################################
+# Environment variables
+####################################
+
+.env
+.env.*
+!.env.example
+
+####################################
+# Generated SKILLS output
+####################################
+
+# If registry is auto-generated
+registry/generated/
+registry/**/tmp/
+
+####################################
+# Caches
+####################################
+
+.cache/
+.eslintcache
+.parcel-cache
+.turbo/
+.nx/
+
+####################################
+# Editor / IDE
+####################################
+
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.swp
+
+####################################
+# GitHub Actions Artifacts
+####################################
+
+.github/actions/**/node_modules/
+.github/actions/**/dist/
+
+####################################
+# Testing
+####################################
+
+test-results/
+playwright-report/
+coverage/
+
+####################################
+# CLI Packed Binaries
+####################################
+
+*.tgz
+*.tar.gz
+
+####################################
+# Lockfiles (KEEP ONE)
+####################################
+
+# If using pnpm:
+!pnpm-lock.yaml
+
+# If not used:
+package-lock.json
+yarn.lock
