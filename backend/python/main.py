@@ -8,8 +8,10 @@
 # - github_sync.py (commit & push to registry)
 # - config.py (env loading)
 
+
 def main():
     print("Backend generator - Coming soon")
+
 
 if __name__ == "__main__":
     main()

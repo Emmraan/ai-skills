@@ -60,12 +60,12 @@ ai-skills/
 
 ### Component Responsibilities
 
-| Component | Language | Purpose |
-|-----------|----------|---------|
-| **CLI** | TypeScript | Download skills, install to agent folders, manage updates |
-| **Backend Generator** | Python | Fetch docs, call LLM, validate, commit to registry |
-| **Skills Registry** | JSON | Central SKILLS.md storage with metadata index |
-| **Shared Types** | TypeScript | Validation schemas, interfaces for both CLI and backend |
+| Component             | Language   | Purpose                                                   |
+| --------------------- | ---------- | --------------------------------------------------------- |
+| **CLI**               | TypeScript | Download skills, install to agent folders, manage updates |
+| **Backend Generator** | Python     | Fetch docs, call LLM, validate, commit to registry        |
+| **Skills Registry**   | JSON       | Central SKILLS.md storage with metadata index             |
+| **Shared Types**      | TypeScript | Validation schemas, interfaces for both CLI and backend   |
 
 ## Development
 
@@ -120,6 +120,7 @@ The implementation is organized into 6 phases (see [plans/PLAN.md](plans/PLAN.md
 ## Contributing
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines on:
+
 - Adding new skills
 - Creating source descriptors
 - Extending LLM prompts

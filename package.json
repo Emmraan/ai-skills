@@ -14,7 +14,7 @@
     "validate": "pnpm --filter=@ai-skills/skills-registry validate-all-skills",
     "test": "pnpm -r test",
     "lint": "eslint . --ext .ts,.js,.py && pnpm -r lint",
-    "format": "prettier --write . && black backend/python",
+    "format": "prettier --write . && python -m black backend/python",
     "generate": "cd backend && pnpm run generate",
     "cli": "pnpm --filter=@ai-skills/cli"
   },

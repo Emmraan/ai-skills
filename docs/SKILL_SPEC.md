@@ -20,6 +20,7 @@ lastGenerated: <ISO 8601 timestamp>
 ```
 
 **Fields:**
+
 - `name` (required, string): Human-readable skill name (e.g., "React", "TypeScript")
 - `version` (required, string): Version of the framework/technology (e.g., "18.2.0")
 - `domains` (required, array): Categories (e.g., ["frontend", "ui", "frameworks"])
@@ -40,13 +41,16 @@ Main heading introducing the skill.
 Brief 1-2 sentence description of the skill's scope and value.
 
 **Rules:**
+
 - Max 150 characters
 - Must be specific and actionable
 - No vague language ("helps", "improves", "better")
 
 **Example:**
+
 ```markdown
 ## Purpose
+
 Essential patterns and best practices for building scalable React applications with hooks, state management, and performance optimization.
 ```
 
@@ -55,13 +59,16 @@ Essential patterns and best practices for building scalable React applications w
 Supported versions and compatibility notes.
 
 **Rules:**
+
 - List minimum version, supported versions, and breaking changes
 - Max 200 characters
 - Include version-specific notes
 
 **Example:**
+
 ```markdown
 ## Version
+
 React 16.8+ (hooks required), tested on 18.0+. Breaking changes from 17→18 affect async batching.
 ```
 
@@ -70,13 +77,16 @@ React 16.8+ (hooks required), tested on 18.0+. Breaking changes from 17→18 aff
 High-level philosophy (3-5 bullets).
 
 **Rules:**
+
 - Each principle must be statement of philosophy, not action
 - Max 100 characters per principle
 - Focus on "why" not "how"
 
 **Example:**
+
 ```markdown
 ## Principles
+
 - Unidirectional data flow ensures predictability
 - Composition over inheritance promotes reusability
 - Immutable state prevents silent bugs
@@ -88,8 +98,10 @@ High-level philosophy (3-5 bullets).
 Rules that MUST be followed for correctness and security (5-10 items).
 
 **Format:**
+
 ```markdown
 ## Mandatory Rules
+
 - Always render keys when mapping over arrays (`key={id}`, not `key={index}`)
 - Never mutate state directly; always use setState or state setters
 - Hooks must only be called at component top-level, never in loops or conditionals
@@ -97,6 +109,7 @@ Rules that MUST be followed for correctness and security (5-10 items).
 ```
 
 **Validation:**
+
 - Each item must be actionable
 - Include specific examples (e.g., "use `key={id}`")
 - No "should" or "try" - use imperative language
@@ -108,8 +121,10 @@ Rules that MUST be followed for correctness and security (5-10 items).
 Patterns for cleaner, more maintainable code (5-10 items).
 
 **Format:**
+
 ```markdown
 ## Recommended Patterns
+
 - Extract complex state logic into custom hooks for reusability
 - Use context + useReducer for cross-cutting state management at scale
 - Memoize expensive computations with useMemo, but measure first
@@ -117,6 +132,7 @@ Patterns for cleaner, more maintainable code (5-10 items).
 ```
 
 **Validation:**
+
 - Recommendation, not requirement
 - Start with "Use", "Prefer", "Consider"
 - Max 10 items
@@ -127,8 +143,10 @@ Patterns for cleaner, more maintainable code (5-10 items).
 Common mistakes to avoid (3-5 items).
 
 **Format:**
+
 ```markdown
 ## Anti-Patterns
+
 - Creating new objects/arrays in render triggers reconciliation; cache with useMemo
 - Using index as key causes reordering bugs; use stable unique identifiers
 - Calling hooks conditionally or in loops breaks React's rules; move to component top-level
@@ -136,6 +154,7 @@ Common mistakes to avoid (3-5 items).
 ```
 
 **Validation:**
+
 - Describe the problem and _why_ it's bad
 - Include consequence/impact
 - Max 5 items
@@ -146,8 +165,10 @@ Common mistakes to avoid (3-5 items).
 Security-specific considerations (3-5 items).
 
 **Format:**
+
 ```markdown
 ## Security
+
 - Sanitize user input before rendering; use libraries like DOMPurify for HTML content
 - Never store sensitive data (tokens, passwords) in localStorage; use secure httpOnly cookies
 - Validate all props and external data; don't trust API responses
@@ -155,6 +176,7 @@ Security-specific considerations (3-5 items).
 ```
 
 **Validation:**
+
 - If no security considerations, state: "No framework-specific security concerns."
 - Include mitigation strategy
 - Max 5 items
@@ -165,8 +187,10 @@ Security-specific considerations (3-5 items).
 Performance optimization guidelines (3-5 items).
 
 **Format:**
+
 ```markdown
 ## Performance
+
 - Avoid creating new objects/functions in render; memoize with useMemo/useCallback
 - Use React.memo for components receiving same props frequently
 - Lazy-load components with React.lazy and Suspense for code splitting
@@ -174,6 +198,7 @@ Performance optimization guidelines (3-5 items).
 ```
 
 **Validation:**
+
 - Include measurement strategy
 - Avoid premature optimization advice
 - Max 5 items
@@ -184,8 +209,10 @@ Performance optimization guidelines (3-5 items).
 Recommended tools and configurations.
 
 **Format:**
+
 ```markdown
 ## Tooling
+
 - ESLint plugin: `eslint-plugin-react-hooks` enforces rules of hooks
 - Performance: React DevTools Profiler for flame charts and component renders
 - Type safety: TypeScript with official @types/react packages
@@ -193,6 +220,7 @@ Recommended tools and configurations.
 ```
 
 **Validation:**
+
 - Only tools directly related to framework/skill
 - Include tool name and purpose
 - Max 5 items
@@ -203,8 +231,10 @@ Recommended tools and configurations.
 ISO 8601 timestamp when skill was generated.
 
 **Format:**
+
 ```markdown
 ## Last-Updated
+
 2026-02-06T14:30:00Z
 ```
 
@@ -213,14 +243,17 @@ ISO 8601 timestamp when skill was generated.
 Original sources used to generate this skill.
 
 **Format:**
+
 ```markdown
 ## Sources
+
 - https://react.dev/ (official documentation)
 - https://github.com/facebook/react/blob/main/CHANGELOG.md (release notes)
 - https://github.com/facebook/react/releases (18.x releases)
 ```
 
 **Validation:**
+
 - All URLs must be valid and accessible
 - Include brief description of each source in parentheses
 - At least 1 source required
@@ -240,31 +273,31 @@ Original sources used to generate this skill.
 
 ### Character Limits
 
-| Section | Min | Max | Unit |
-|---------|-----|-----|------|
-| Purpose | 50 | 150 | chars |
-| Version | 20 | 200 | chars |
-| Principles | 20 | 100 | chars (each) |
-| Rules (each) | 15 | 150 | chars |
-| Patterns (each) | 15 | 150 | chars |
-| Anti-Patterns (each) | 20 | 150 | chars |
-| Security (each) | 20 | 150 | chars |
-| Performance (each) | 20 | 150 | chars |
-| Tooling (each) | 15 | 120 | chars |
+| Section              | Min | Max | Unit         |
+| -------------------- | --- | --- | ------------ |
+| Purpose              | 50  | 150 | chars        |
+| Version              | 20  | 200 | chars        |
+| Principles           | 20  | 100 | chars (each) |
+| Rules (each)         | 15  | 150 | chars        |
+| Patterns (each)      | 15  | 150 | chars        |
+| Anti-Patterns (each) | 20  | 150 | chars        |
+| Security (each)      | 20  | 150 | chars        |
+| Performance (each)   | 20  | 150 | chars        |
+| Tooling (each)       | 15  | 120 | chars        |
 
 ### Content Requirements
 
-| Section | Min Items | Max Items | Optional? |
-|---------|-----------|-----------|-----------|
-| Principles | 3 | 5 | No |
-| Mandatory Rules | 3 | 10 | No |
-| Recommended Patterns | 3 | 10 | No |
-| Anti-Patterns | 2 | 5 | No |
-| Security | 1 | 5 | Yes* |
-| Performance | 1 | 5 | Yes* |
-| Tooling | 1 | 5 | Yes* |
+| Section              | Min Items | Max Items | Optional? |
+| -------------------- | --------- | --------- | --------- |
+| Principles           | 3         | 5         | No        |
+| Mandatory Rules      | 3         | 10        | No        |
+| Recommended Patterns | 3         | 10        | No        |
+| Anti-Patterns        | 2         | 5         | No        |
+| Security             | 1         | 5         | Yes\*     |
+| Performance          | 1         | 5         | Yes\*     |
+| Tooling              | 1         | 5         | Yes\*     |
 
-*If topic not applicable, state explicitly (e.g., "No framework-specific tooling.")*
+_If topic not applicable, state explicitly (e.g., "No framework-specific tooling.")_
 
 ---
 
@@ -281,18 +314,22 @@ lastGenerated: 2026-02-06T00:00:00Z
 # Skill: React
 
 ## Purpose
+
 Essential patterns and best practices for building scalable React applications with hooks, state management, and performance optimization.
 
 ## Version
+
 React 16.8+ (hooks required), tested on 18.0–18.2. Breaking changes from 17→18: automatic batching now applies outside event handlers.
 
 ## Principles
+
 - Unidirectional data flow ensures predictability and debuggability
 - Composition over inheritance promotes component reusability
 - Immutable state prevents silent bugs and enables time-travel debugging
 - Declarative UI syntax matches mental models of component structure
 
 ## Mandatory Rules
+
 - Always provide stable keys when rendering lists; never use array index as key
 - Never mutate state directly; always use setState or hook setters
 - Call hooks only at component top-level, never inside loops or conditionals
@@ -301,6 +338,7 @@ React 16.8+ (hooks required), tested on 18.0–18.2. Breaking changes from 17→
 - Never call React hooks inside regular JavaScript functions or class methods
 
 ## Recommended Patterns
+
 - Extract complex state logic into custom hooks for better code sharing
 - Use context with useReducer for cross-cutting concerns at scale
 - Memoize expensive computations with useMemo after profiling confirms benefit
@@ -308,6 +346,7 @@ React 16.8+ (hooks required), tested on 18.0–18.2. Breaking changes from 17→
 - Use React.memo for components that receive identical props frequently
 
 ## Anti-Patterns
+
 - Creating new objects or arrays in render causes reconciliation; cache with useMemo
 - Passing brand-new functions as props defeats React.memo optimization
 - Using array index as key causes reordering bugs on list mutations
@@ -315,27 +354,32 @@ React 16.8+ (hooks required), tested on 18.0–18.2. Breaking changes from 17→
 - Circular component imports cause bundler issues; use lazy loading instead
 
 ## Security
+
 - Sanitize user input before rendering; use DOMPurify for HTML content
 - Never store sensitive data in localStorage; use secure httpOnly cookies
 - Validate all external API data; don't trust responses without validation
 - Avoid dangerouslySetInnerHTML unless content is guaranteed safe and validated
 
 ## Performance
+
 - Use React DevTools Profiler to measure component render times before optimizing
 - Memoize callbacks with useCallback if passed as dependency to memoized child
 - Code-split with React.lazy to reduce initial bundle size for large apps
 - Batch state updates in event handlers to reduce re-renders (automatic in React 18)
 
 ## Tooling
+
 - ESLint plugin: `eslint-plugin-react-hooks` enforces rules of hooks
 - React DevTools browser extension for component tree inspection and profiling
 - TypeScript for type safety; include @types/react and @types/react-dom
 - Vite or Create React App for build tooling and dev server
 
 ## Last-Updated
+
 2026-02-06T00:00:00Z
 
 ## Sources
+
 - https://react.dev/ (official documentation and guides)
 - https://github.com/facebook/react/blob/main/CHANGELOG.md (changelog)
 - https://react.dev/reference/rules/rules-of-hooks (hooks rules)

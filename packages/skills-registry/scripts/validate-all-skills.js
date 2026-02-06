@@ -23,9 +23,20 @@ function validateSkill(filePath) {
   }
 
   // Check for required sections
-  const sections = ['Purpose', 'Version', 'Principles', 'Mandatory Rules', 'Recommended Patterns', 
-                    'Anti-Patterns', 'Security', 'Performance', 'Tooling', 'Last-Updated', 'Sources'];
-  
+  const sections = [
+    'Purpose',
+    'Version',
+    'Principles',
+    'Mandatory Rules',
+    'Recommended Patterns',
+    'Anti-Patterns',
+    'Security',
+    'Performance',
+    'Tooling',
+    'Last-Updated',
+    'Sources',
+  ];
+
   for (const sec of sections) {
     if (!content.includes(`## ${sec}`)) {
       errors.push(`Missing section: ${sec}`);
@@ -34,7 +45,7 @@ function validateSkill(filePath) {
 
   // Check for minimum content
   const lines = content.split('\n');
-  const bulletPoints = lines.filter(l => l.trim().startsWith('-'));
+  const bulletPoints = lines.filter((l) => l.trim().startsWith('-'));
   if (bulletPoints.length < 20) {
     errors.push(`Too few bullet points (${bulletPoints.length}, expected 20+)`);
   }
@@ -44,7 +55,7 @@ function validateSkill(filePath) {
 
 function main() {
   const skillsDir = resolve(process.cwd(), 'packages/skills-registry/skills');
-  const skillDirs = readdirSync(skillsDir).filter(f => !f.startsWith('.'));
+  const skillDirs = readdirSync(skillsDir).filter((f) => !f.startsWith('.'));
 
   console.log(`${colors.blue}Validating SKILLS.md files...${colors.reset}\n`);
 
@@ -54,7 +65,7 @@ function main() {
   for (const dir of skillDirs) {
     const path = join(skillsDir, dir, 'SKILLS.md');
     const errors = validateSkill(path);
-    
+
     if (errors.length === 0) {
       console.log(`${colors.green}✓${colors.reset} ${colors.blue}${dir}${colors.reset}`);
       validCount++;
