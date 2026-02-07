@@ -22,4 +22,8 @@ export function getSkillInstallPaths(skillName: string): string[] {
   return getAgentPlatformDirs().map((dir) => join(dir, skillName, 'SKILLS.md'));
 }
 
+export function getSkillMetadataPaths(skillName: string): string[] {
+  return getAgentPlatformDirs().map((dir) => join(dir, skillName, '.skill-metadata.json'));
+}
+
 export const IS_WINDOWS = platform() === 'win32';

@@ -1,4 +1,4 @@
-import { fetchSkill, getAvailableSkills } from '../core/downloader.js';
+import { fetchSkill, fetchRegistryIndex } from '../core/downloader.js';
 import { installSkill } from '../core/installer.js';
 import { addSkillToLockfile } from '../core/lockfile.js';
 import { sha256 } from '../utils/hash.js';
@@ -18,9 +18,8 @@ export async function install(skillName: string): Promise<boolean> {
       return false;
     }
 
-    // Get version from available skills
-    const availableSkills = await getAvailableSkills();
-    const skillVersion = availableSkills.includes(skillName) ? '1.0.0' : 'unknown';
+    const index = await fetchRegistryIndex();
+    const skillVersion = index.skills[skillName]?.version || 'unknown';
 
     await addSkillToLockfile(skillName, skillVersion, hash, installPaths);
     success(`Installed ${skillName} (${skillVersion}) to ${installPaths.length} location(s)`);

@@ -2,6 +2,7 @@ import { install } from './commands/install.js';
 import { remove } from './commands/remove.js';
 import { list } from './commands/list.js';
 import { update } from './commands/update.js';
+import { generateLocal } from './commands/generate-local.js';
 import { error, info } from './utils/logger.js';
 
 const args = process.argv.slice(2);
@@ -36,6 +37,10 @@ export async function main(): Promise<void> {
       }
       const success = await update({ force: forceFlag, skill: skillArg });
       process.exit(success ? 0 : 1);
+    } else if (command === 'generate-local') {
+      const skillArg = args[1];
+      const success = await generateLocal(skillArg);
+      process.exit(success ? 0 : 1);
     } else if (!command.startsWith('-')) {
       // Default behavior: treat first arg as skill name to install
       const success = await install(command);
@@ -60,6 +65,7 @@ Usage:
   ai-skills remove <skill>       Remove an installed skill
   ai-skills update [--force]     Update all installed skills
                   [--skill <name>]   Update a specific skill
+  ai-skills generate-local [skill]    Run local backend generator
 
 Examples:
   ai-skills react
@@ -68,5 +74,7 @@ Examples:
   ai-skills remove python
   ai-skills update --force
   ai-skills update --skill react
+  ai-skills generate-local
+  ai-skills generate-local react
   `);
 }

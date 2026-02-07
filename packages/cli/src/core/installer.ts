@@ -1,18 +1,40 @@
 import { writeFile, mkdir, readFile, rm } from 'fs/promises';
 import { dirname } from 'path';
-import { getSkillInstallPaths } from './config.js';
+import { getSkillInstallPaths, getSkillMetadataPaths } from './config.js';
+import { sha256 } from '../utils/hash.js';
 import { info, warn } from '../utils/logger.js';
 
 export async function installSkill(skillName: string, skillContent: string): Promise<string[]> {
   const installPaths = getSkillInstallPaths(skillName);
+  const metadataPaths = getSkillMetadataPaths(skillName);
   const installedPaths: string[] = [];
+  const installedMetadataPaths: string[] = [];
+  const hash = sha256(skillContent);
+  const installedAt = new Date().toISOString();
 
-  for (const skillPath of installPaths) {
+  for (let i = 0; i < installPaths.length; i++) {
+    const skillPath = installPaths[i];
+    const metadataPath = metadataPaths[i];
     try {
       const dir = dirname(skillPath);
       await mkdir(dir, { recursive: true });
       await writeFile(skillPath, skillContent, 'utf-8');
+      await writeFile(
+        metadataPath,
+        JSON.stringify(
+          {
+            skill: skillName,
+            hash,
+            installedAt,
+            file: 'SKILLS.md',
+          },
+          null,
+          2
+        ),
+        'utf-8'
+      );
       installedPaths.push(skillPath);
+      installedMetadataPaths.push(metadataPath);
       info(`Installed to ${skillPath}`);
     } catch (err) {
       warn(
@@ -21,16 +43,24 @@ export async function installSkill(skillName: string, skillContent: string): Pro
     }
   }
 
+  if (installedMetadataPaths.length > 0) {
+    info(`Wrote metadata to ${installedMetadataPaths.length} location(s)`);
+  }
+
   return installedPaths;
 }
 
 export async function removeSkill(skillName: string): Promise<string[]> {
   const installPaths = getSkillInstallPaths(skillName);
+  const metadataPaths = getSkillMetadataPaths(skillName);
   const removedPaths: string[] = [];
 
-  for (const skillPath of installPaths) {
+  for (let i = 0; i < installPaths.length; i++) {
+    const skillPath = installPaths[i];
+    const metadataPath = metadataPaths[i];
     try {
       await rm(skillPath, { force: true });
+      await rm(metadataPath, { force: true });
       removedPaths.push(skillPath);
       info(`Removed ${skillPath}`);
     } catch (err) {

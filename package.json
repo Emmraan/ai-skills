@@ -9,7 +9,7 @@
     "pnpm": ">=10.0.0"
   },
   "scripts": {
-    "dev": "pnpm --filter=@ai-skills/cli dev",
+    "dev": "pnpm --filter=ai-skills dev",
     "build": "pnpm -r build",
     "validate": "pnpm --filter=@ai-skills/skills-registry validate-all-skills",
     "test": "pnpm -r --filter @ai-skills/* test",
@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "format": "prettier --write . && python -m black backend/python",
     "generate": "cd backend && pnpm run generate",
-    "cli": "pnpm --filter=@ai-skills/cli"
+    "cli": "pnpm --filter=ai-skills"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.54.0",
