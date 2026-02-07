@@ -15,15 +15,18 @@
     }
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json && chmod +x dist/bin/skills.js",
+    "build": "tsc --project tsconfig.json",
     "dev": "tsx src/bin/skills.ts",
     "test": "vitest",
+    "lint": "true",
+    "typecheck": "true",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "@ai-skills/shared-types": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^20.10.0",
     "tsx": "^4.7.0",
     "vitest": "^1.1.0"
   }
