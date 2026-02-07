@@ -54,7 +54,7 @@ function validateSkill(filePath) {
 }
 
 function main() {
-  const skillsDir = resolve(process.cwd(), 'packages/skills-registry/skills');
+  const skillsDir = resolve(process.cwd(), 'skills');
   const skillDirs = readdirSync(skillsDir).filter((f) => !f.startsWith('.'));
 
   console.log(`${colors.blue}Validating SKILLS.md files...${colors.reset}\n`);

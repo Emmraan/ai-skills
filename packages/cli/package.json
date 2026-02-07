@@ -17,9 +17,9 @@
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "dev": "tsx src/bin/skills.ts",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "true",
-    "typecheck": "true",
+    "typecheck": "tsc --noEmit --project tsconfig.json",
     "clean": "rm -rf dist"
   },
   "dependencies": {

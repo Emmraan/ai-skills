@@ -12,7 +12,7 @@
     "dev": "pnpm --filter=@ai-skills/cli dev",
     "build": "pnpm -r build",
     "validate": "pnpm --filter=@ai-skills/skills-registry validate-all-skills",
-    "test": "pnpm -r test",
+    "test": "pnpm -r --filter @ai-skills/* test",
     "lint": "eslint . --ext .ts,.js --config .eslintrc.cjs && pnpm -r lint",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "format": "prettier --write . && python -m black backend/python",
