@@ -110,7 +110,15 @@ Linux/MacOS: source venv/bin/activate
 # Install Packages
 pip install -r requirements.txt --no-build-isolation
 
-# Run Tests
+# Run Workspace Tests (Node)
+cd ../..
+pnpm test
+
+# Run Python Backend Tests (venv required)
+# 1) Create + activate venv (see above)
+# 2) Install Python deps:
+#    pip install -r requirements.txt --no-build-isolation
+# 3) Run tests:
 python -m pytest tests/
 ```
 
@@ -129,10 +137,10 @@ GITHUB_TOKEN=ghp_xxxx
 
 The implementation is organized into 6 phases (see [plans/PLAN.md](plans/PLAN.md)):
 
-- **Phase 0**: Project scaffolding ✅ (current)
-- **Phase 1**: Skills registry & schema
-- **Phase 2**: Backend generator (Python)
-- **Phase 3**: CLI tool (Node.js)
+- **Phase 0**: Project scaffolding ✅
+- **Phase 1**: Skills registry & schema ✅
+- **Phase 2**: Backend generator (Python) ✅
+- **Phase 3**: CLI tool (Node.js) ✅
 - **Phase 4**: GitHub Actions automation
 - **Phase 5**: Documentation & examples
 - **Phase 6**: Testing & CI pipeline

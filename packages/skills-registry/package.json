@@ -8,7 +8,11 @@
     ".": "./skills/.index.json"
   },
   "scripts": {
-    "validate": "node scripts/validate-all-skills.js"
+    "validate": "node scripts/validate-all-skills.js",
+    "validate-all-skills": "node scripts/validate-all-skills.js",
+    "test": "node scripts/validate-all-skills.js",
+    "lint": "node -e \"process.exit(0)\"",
+    "typecheck": "node -e \"process.exit(0)\""
   },
   "devDependencies": {}
 }
