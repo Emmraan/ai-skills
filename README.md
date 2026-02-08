@@ -51,14 +51,25 @@ npx @emmraan/ai-skills update
 
 # Remove a skill
 npx @emmraan/ai-skills remove react
+
+# Remove from local selected platforms
+npx @emmraan/ai-skills remove react --local --platform claude
+
+# Remove from global all platforms
+npx @emmraan/ai-skills remove react --global --all
 ```
 
-### Interactive install flow
+### Interactive CLI flow
 
 Running [`ai-skills <skill>`](packages/cli/src/index.ts:63) with no install flags now prompts for:
 
 1. Install location: Local (current project) or Global (agent platforms)
-2. If Global: All platforms or specific platforms
+2. Install target: All platforms or specific platforms (for both Local and Global)
+
+Running [`ai-skills remove <skill>`](packages/cli/src/index.ts:63) with no remove flags now prompts for:
+
+1. Remove location: Local (current project) or Global (agent platforms)
+2. Remove target: All platforms or specific platforms (for both Local and Global)
 
 Non-interactive install flags:
 
@@ -67,7 +78,21 @@ Non-interactive install flags:
 - `--platform <name[,name]>`
 - `--all`
 
+Non-interactive remove flags:
+
+- `--local`
+- `--global`
+- `--platform <name[,name]>`
+- `--all`
+
 Default behavior remains **global + all platforms** when prompts are not used.
+
+### CLI UX enhancements
+
+- Subtle startup banner in TTY sessions
+- Colored status logs
+- Spinners for install/remove progress
+- Interactive prompts powered by `inquirer`
 
 ## Architecture
 
