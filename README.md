@@ -31,6 +31,18 @@ npx @emmraan/ai-skills list
 # Install a skill
 npx @emmraan/ai-skills react
 
+# Install to local project only (uses process.cwd())
+npx @emmraan/ai-skills react --local
+
+# Install globally to selected platforms only
+npx @emmraan/ai-skills react --platform claude,gemini
+
+# Install globally to all platforms
+npx @emmraan/ai-skills react --global --all
+
+# Instal locally for selected platform
+npx @emmraan/ai-skills react --local --platform claude
+
 # List all available skills
 npx @emmraan/ai-skills list
 
@@ -40,6 +52,22 @@ npx @emmraan/ai-skills update
 # Remove a skill
 npx @emmraan/ai-skills remove react
 ```
+
+### Interactive install flow
+
+Running [`ai-skills <skill>`](packages/cli/src/index.ts:63) with no install flags now prompts for:
+
+1. Install location: Local (current project) or Global (agent platforms)
+2. If Global: All platforms or specific platforms
+
+Non-interactive install flags:
+
+- `--local`
+- `--global`
+- `--platform <name[,name]>`
+- `--all`
+
+Default behavior remains **global + all platforms** when prompts are not used.
 
 ## Architecture
 

@@ -1,12 +1,16 @@
 import { writeFile, mkdir, readFile, rm } from 'fs/promises';
 import { dirname } from 'path';
-import { getSkillInstallPaths, getSkillMetadataPaths } from './config.js';
+import { getSkillInstallPaths, getSkillMetadataPaths, type InstallOptions } from './config.js';
 import { sha256 } from '../utils/hash.js';
 import { info, warn } from '../utils/logger.js';
 
-export async function installSkill(skillName: string, skillContent: string): Promise<string[]> {
-  const installPaths = getSkillInstallPaths(skillName);
-  const metadataPaths = getSkillMetadataPaths(skillName);
+export async function installSkill(
+  skillName: string,
+  skillContent: string,
+  options: InstallOptions = {}
+): Promise<string[]> {
+  const installPaths = getSkillInstallPaths(skillName, options);
+  const metadataPaths = getSkillMetadataPaths(skillName, options);
   const installedPaths: string[] = [];
   const installedMetadataPaths: string[] = [];
   const hash = sha256(skillContent);

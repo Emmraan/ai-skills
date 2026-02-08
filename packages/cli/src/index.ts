@@ -1,4 +1,4 @@
-import { install } from './commands/install.js';
+import { install, parseInstallFlags, resolveInstallOptionsFromFlags } from './commands/install.js';
 import { remove } from './commands/remove.js';
 import { list } from './commands/list.js';
 import { update } from './commands/update.js';
@@ -18,7 +18,9 @@ export async function main(): Promise<void> {
   try {
     if (command === 'install' && args.length >= 2) {
       const skill = args[1];
-      const success = await install(skill);
+      const flags = parseInstallFlags(args.slice(2));
+      const options = await resolveInstallOptionsFromFlags(flags, true);
+      const success = await install(skill, options);
       process.exit(success ? 0 : 1);
     } else if (command === 'remove' && args.length >= 2) {
       const skill = args[1];
@@ -43,7 +45,9 @@ export async function main(): Promise<void> {
       process.exit(success ? 0 : 1);
     } else if (!command.startsWith('-')) {
       // Default behavior: treat first arg as skill name to install
-      const success = await install(command);
+      const flags = parseInstallFlags(args.slice(1));
+      const options = await resolveInstallOptionsFromFlags(flags, true);
+      const success = await install(command, options);
       process.exit(success ? 0 : 1);
     } else {
       showHelp();
@@ -59,16 +63,24 @@ function showHelp() {
 AI Skills CLI - Install framework-agnostic SKILLS.md files
 
 Usage:
-  ai-skills <skill>              Install a skill
-  ai-skills install <skill>      Install a skill
+  ai-skills <skill> [options]              Install a skill
+  ai-skills install <skill> [options]      Install a skill
   ai-skills list [--json]        List installed and available skills
   ai-skills remove <skill>       Remove an installed skill
   ai-skills update [--force]     Update all installed skills
                   [--skill <name>]   Update a specific skill
   ai-skills generate-local [skill]    Run local backend generator
 
+Install options:
+  --local                         Install in current project (.ai-skills/skills)
+  --global                        Install in home agent folders
+  --all                           Install to all global platforms
+  --platform <a,b,c>              Install to selected global platforms
+
 Examples:
   ai-skills react
+  ai-skills react --local
+  ai-skills react --platform claude,gemini,opencode,vscode,codex,agents
   ai-skills install typescript
   ai-skills list
   ai-skills remove python
