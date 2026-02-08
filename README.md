@@ -22,23 +22,23 @@
 ```bash
 npm install -g ai-skills
 # or
-npx ai-skills list
+npx @emmraan/ai-skills list
 ```
 
 ### Usage
 
 ```bash
 # Install a skill
-npx ai-skills react
+npx @emmraan/ai-skills react
 
 # List all available skills
-npx ai-skills list
+npx @emmraan/ai-skills list
 
 # Update all installed skills
-npx ai-skills update
+npx @emmraan/ai-skills update
 
 # Remove a skill
-npx ai-skills remove react
+npx @emmraan/ai-skills remove react
 ```
 
 ## Architecture
