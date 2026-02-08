@@ -1,6 +1,6 @@
 {
   "name": "ai-skills-monorepo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Auto-updating, framework-agnostic, production-grade SKILLS.md files for AI agents.",
   "private": true,
   "type": "module",
