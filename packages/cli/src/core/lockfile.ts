@@ -59,6 +59,21 @@ export async function removeSkillFromLockfile(skillName: string): Promise<void> 
   await writeLockfile(lockfile);
 }
 
+export async function updateSkillInstallPathsInLockfile(
+  skillName: string,
+  installPaths: string[]
+): Promise<void> {
+  const lockfile = await readLockfile();
+  const entry = lockfile.installedSkills[skillName];
+  if (!entry) {
+    return;
+  }
+
+  entry.installPaths = installPaths;
+  entry.timestamp = new Date().toISOString();
+  await writeLockfile(lockfile);
+}
+
 export async function getInstalledSkills(): Promise<LockfileEntry[]> {
   const lockfile = await readLockfile();
   return Object.values(lockfile.installedSkills);

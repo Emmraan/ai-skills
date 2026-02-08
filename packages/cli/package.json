@@ -1,6 +1,6 @@
 {
   "name": "@emmraan/ai-skills",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "CLI tool for installing AI Skills across agent platforms",
   "type": "module",
   "bin": {
@@ -22,6 +22,11 @@
     "lint": "node -e \"process.exit(0)\"",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "inquirer": "^12.9.6",
+    "ora": "^8.2.0"
   },
   "devDependencies": {
     "@ai-skills/shared-types": "workspace:*",

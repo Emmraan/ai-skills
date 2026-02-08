@@ -3,9 +3,9 @@ import { installSkill } from '../core/installer.js';
 import { addSkillToLockfile } from '../core/lockfile.js';
 import { AGENT_PLATFORMS, type InstallOptions, type InstallLocation } from '../core/config.js';
 import { sha256 } from '../utils/hash.js';
-import { error, success, info } from '../utils/logger.js';
-import { createInterface } from 'readline/promises';
-import { stdin as input, stdout as output } from 'process';
+import { error, success } from '../utils/logger.js';
+import inquirer from 'inquirer';
+import { ui } from '../utils/ui.js';
 
 export interface CliInstallFlags {
   local?: boolean;
@@ -79,7 +79,7 @@ export async function resolveInstallOptionsFromFlags(
   }
 
   if (!hasAnyFlag) {
-    if (interactive && input.isTTY && output.isTTY) {
+    if (interactive && process.stdin.isTTY && process.stdout.isTTY) {
       return promptInstallOptions();
     }
     return { location: 'global', all: true };
@@ -89,68 +89,86 @@ export async function resolveInstallOptionsFromFlags(
 }
 
 async function promptInstallOptions(): Promise<InstallOptions> {
-  const rl = createInterface({ input, output });
-  try {
-    const locationAnswer = (
-      await rl.question(
-        'Install location? [1] Local (current project) [2] Global (agent platforms) (default: 2): '
-      )
-    ).trim();
+  const { location } = await inquirer.prompt<{ location: InstallLocation }>([
+    {
+      type: 'list',
+      name: 'location',
+      message: 'Install location',
+      choices: [
+        { name: 'Local (current project)', value: 'local' },
+        { name: 'Global (agent platforms)', value: 'global' },
+      ],
+      default: 'global',
+    },
+  ]);
 
-    const location: InstallLocation = locationAnswer === '1' ? 'local' : 'global';
-    if (location === 'local') {
-      return { location: 'local' };
-    }
+  const { target } = await inquirer.prompt<{ target: 'all' | 'specific' }>([
+    {
+      type: 'list',
+      name: 'target',
+      message: `${location === 'local' ? 'Local' : 'Global'} install target`,
+      choices: [
+        { name: 'All platforms', value: 'all' },
+        { name: 'Specific platforms', value: 'specific' },
+      ],
+      default: 'all',
+    },
+  ]);
 
-    const platformAnswer = (
-      await rl.question(
-        'Global install target? [1] All platforms [2] Specific platforms (default: 1): '
-      )
-    ).trim();
-
-    if (platformAnswer !== '2') {
-      return { location: 'global', all: true };
-    }
-
-    info(`Available platforms: ${AGENT_PLATFORMS.map((p) => p.replace(/^\./, '')).join(', ')}`);
-    const selected = (
-      await rl.question('Enter comma-separated platform names (example: claude,gemini,vscode): ')
-    )
-      .split(',')
-      .map((p) => p.trim())
-      .filter(Boolean);
-
-    return {
-      location: 'global',
-      all: selected.length === 0,
-      platforms: selected,
-    };
-  } finally {
-    rl.close();
+  if (target === 'all') {
+    return { location, all: true };
   }
+
+  const platformChoices = AGENT_PLATFORMS.map((platform) => {
+    const value = platform.replace(/^\./, '');
+    return { name: value, value };
+  });
+
+  const { platforms } = await inquirer.prompt<{ platforms: string[] }>([
+    {
+      type: 'checkbox',
+      name: 'platforms',
+      message: 'Select target platforms',
+      choices: platformChoices,
+      pageSize: 10,
+      validate: (value: string[]) =>
+        value.length > 0 ? true : 'Please select at least one platform.',
+    },
+  ]);
+
+  return {
+    location,
+    all: false,
+    platforms,
+  };
 }
 
 export async function install(skillName: string, options: InstallOptions = {}): Promise<boolean> {
   try {
-    info(`Fetching ${skillName}...`);
+    ui.startSpinner(`Fetching ${skillName}...`);
     const skillContent = await fetchSkill(skillName);
+    ui.stopSpinnerSuccess(`Fetched ${skillName}`);
     const hash = sha256(skillContent);
 
-    info(`Installing ${skillName}...`);
+    ui.startSpinner(`Installing ${skillName}...`);
     const installPaths = await installSkill(skillName, skillContent, options);
+    ui.stopSpinnerSuccess(`Installed files for ${skillName}`);
 
     if (installPaths.length === 0) {
       error(`Failed to install ${skillName} to any location`);
       return false;
     }
 
+    ui.startSpinner(`Updating lockfile for ${skillName}...`);
     const index = await fetchRegistryIndex();
     const skillVersion = index.skills[skillName]?.version || 'unknown';
 
     await addSkillToLockfile(skillName, skillVersion, hash, installPaths);
+    ui.stopSpinnerSuccess(`Updated lockfile for ${skillName}`);
     success(`Installed ${skillName} (${skillVersion}) to ${installPaths.length} location(s)`);
     return true;
   } catch (err) {
+    ui.stopSpinner();
     error(`Failed to install ${skillName}: ${err instanceof Error ? err.message : String(err)}`);
     return false;
   }

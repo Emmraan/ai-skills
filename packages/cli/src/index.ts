@@ -1,13 +1,16 @@
 import { install, parseInstallFlags, resolveInstallOptionsFromFlags } from './commands/install.js';
-import { remove } from './commands/remove.js';
+import { remove, parseRemoveFlags, resolveRemoveOptionsFromFlags } from './commands/remove.js';
 import { list } from './commands/list.js';
 import { update } from './commands/update.js';
 import { generateLocal } from './commands/generate-local.js';
 import { error, info } from './utils/logger.js';
+import { ui } from './utils/ui.js';
 
 const args = process.argv.slice(2);
 
 export async function main(): Promise<void> {
+  ui.printBanner();
+
   if (args.length === 0) {
     showHelp();
     return;
@@ -24,7 +27,9 @@ export async function main(): Promise<void> {
       process.exit(success ? 0 : 1);
     } else if (command === 'remove' && args.length >= 2) {
       const skill = args[1];
-      const success = await remove(skill);
+      const flags = parseRemoveFlags(args.slice(2));
+      const options = await resolveRemoveOptionsFromFlags(flags, true);
+      const success = await remove(skill, options);
       process.exit(success ? 0 : 1);
     } else if (command === 'list') {
       const jsonFlag = args.includes('--json');
@@ -66,7 +71,7 @@ Usage:
   ai-skills <skill> [options]              Install a skill
   ai-skills install <skill> [options]      Install a skill
   ai-skills list [--json]        List installed and available skills
-  ai-skills remove <skill>       Remove an installed skill
+  ai-skills remove <skill> [options]   Remove an installed skill
   ai-skills update [--force]     Update all installed skills
                   [--skill <name>]   Update a specific skill
   ai-skills generate-local [skill]    Run local backend generator
@@ -76,6 +81,12 @@ Install options:
   --global                        Install in home agent folders
   --all                           Install to all global platforms
   --platform <a,b,c>              Install to selected global platforms
+
+Remove options:
+  --local                         Remove from current project platforms
+  --global                        Remove from home agent platforms
+  --all                           Remove from all platforms for selected scope
+  --platform <a,b,c>              Remove from selected platforms for selected scope
 
 Examples:
   ai-skills react

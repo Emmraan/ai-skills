@@ -54,21 +54,26 @@ export async function installSkill(
   return installedPaths;
 }
 
-export async function removeSkill(skillName: string): Promise<string[]> {
-  const installPaths = getSkillInstallPaths(skillName);
-  const metadataPaths = getSkillMetadataPaths(skillName);
+export async function removeSkill(
+  skillName: string,
+  options: InstallOptions = {}
+): Promise<string[]> {
+  const installPaths = getSkillInstallPaths(skillName, options);
+  const metadataPaths = getSkillMetadataPaths(skillName, options);
   const removedPaths: string[] = [];
 
   for (let i = 0; i < installPaths.length; i++) {
     const skillPath = installPaths[i];
     const metadataPath = metadataPaths[i];
+    const skillDir = dirname(skillPath);
     try {
       await rm(skillPath, { force: true });
       await rm(metadataPath, { force: true });
+      await rm(skillDir, { recursive: true, force: true });
       removedPaths.push(skillPath);
-      info(`Removed ${skillPath}`);
+      info(`Removed ${skillDir}`);
     } catch (err) {
-      warn(`Failed to remove ${skillPath}: ${err instanceof Error ? err.message : String(err)}`);
+      warn(`Failed to remove ${skillDir}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 

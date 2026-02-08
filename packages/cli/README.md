@@ -13,14 +13,21 @@ Install framework-agnostic `SKILLS.md` files for AI agents.
 - `npx @emmraan/ai-skills list` - List available and installed skills
 - `npx @emmraan/ai-skills update` - Update all installed skills
 - `npx @emmraan/ai-skills remove react` - Remove React skill
+- `npx @emmraan/ai-skills remove react --local --platform claude` - Remove from selected local platforms
+- `npx @emmraan/ai-skills remove react --global --all` - Remove from all global platforms
 - `npx @emmraan/ai-skills generate-local` - Run local backend generator
 
-## Interactive install flow
+## Interactive flow
 
 When you run `npx @emmraan/ai-skills <skill>` without install flags, the CLI prompts for:
 
 1. Install location: Local (current project) or Global (agent platforms)
-2. If Global: All platforms or specific platforms
+2. Install target: All platforms or specific platforms (for both Local and Global)
+
+When you run `npx @emmraan/ai-skills remove <skill>` without remove flags, the CLI prompts for:
+
+1. Remove location: Local (current project) or Global (agent platforms)
+2. Remove target: All platforms or specific platforms (for both Local and Global)
 
 Supported non-interactive install flags:
 
@@ -29,7 +36,21 @@ Supported non-interactive install flags:
 - `--platform <name[,name]>`
 - `--all`
 
+Supported non-interactive remove flags:
+
+- `--local`
+- `--global`
+- `--platform <name[,name]>`
+- `--all`
+
 Default behavior remains global + all platforms.
+
+## UX improvements
+
+- Subtle welcome banner in TTY sessions
+- Colored logs for info/success/warn/error states
+- Spinners during install/remove operations
+- Interactive prompts via `inquirer`
 
 ## Publish to npm
 
