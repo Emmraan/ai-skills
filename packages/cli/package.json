@@ -24,7 +24,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@ai-skills/shared-types": "workspace:*"
+    "@ai-skills/shared-types": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
