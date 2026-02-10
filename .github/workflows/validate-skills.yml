@@ -1,0 +1,122 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - packages/skills-registry/**/*.md
+      - packages/skills-registry/.index.json
+      - .github/workflows/validate-skills.yml
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  validate:
+    name: Validate Skills Schema & Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.x
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Validate all skills
+        id: validate
+        run: pnpm run validate-all-skills
+
+      - name: Run tests
+        id: tests
+        run: pnpm test --run
+        continue-on-error: true
+
+      - name: Generate validation report
+        if: always()
+        run: |
+          echo "## Skills Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Validation Status" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.validate.outcome }}" = "success" ]; then
+            echo "✅ **All skills passed schema validation**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Validation failed** - see logs for details" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.tests.outcome }}" = "success" ]; then
+            echo "✅ **All tests passed**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Some tests failed** - see logs for details" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Files Changed" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          git diff --name-only origin/main...HEAD -- packages/skills-registry/ || echo "No changes"
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Post validation comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const validateStatus = '${{ steps.validate.outcome }}';
+            const testStatus = '${{ steps.tests.outcome }}';
+
+            const validateEmoji = validateStatus === 'success' ? '✅' : '❌';
+            const testEmoji =
+              testStatus === 'success'
+                ? '✅'
+                : testStatus === 'skipped'
+                ? '⏭️'
+                : '❌';
+
+            const body = `## 🤖 Skills Validation Results
+
+| Check | Status |
+|------|--------|
+| Schema Validation | ${validateEmoji} ${validateStatus} |
+| Tests | ${testEmoji} ${testStatus} |
+
+### Details
+- All SKILLS.md files validated against schema
+- Quality checks for clarity, duplicates, and metadata
+- Version context preserved
+
+*Validation performed by GitHub Actions*`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+
+      - name: Fail if validation failed
+        if: steps.validate.outcome != 'success'
+        run: exit 1
+
+      - name: Fail if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

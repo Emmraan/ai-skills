@@ -68,6 +68,7 @@ backend/**/*.egg-info/
 
 packages/**/.venv/
 plans/
+*-cwd
 
 ####################################
 # Environment variables
