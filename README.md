@@ -194,7 +194,7 @@ The implementation is organized into 6 phases (see [plans/PLAN.md](plans/PLAN.md
 - **Phase 1**: Skills registry & schema ✅
 - **Phase 2**: Backend generator (Python) ✅
 - **Phase 3**: CLI tool (Node.js) ✅
-- **Phase 4**: GitHub Actions automation
+- **Phase 4**: GitHub Actions automation ✅
 - **Phase 5**: Documentation & examples
 - **Phase 6**: Testing & CI pipeline
 
