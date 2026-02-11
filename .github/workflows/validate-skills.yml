@@ -92,19 +92,21 @@ jobs:
                 ? '⏭️'
                 : '❌';
 
-            const body = `## 🤖 Skills Validation Results
-
-| Check | Status |
-|------|--------|
-| Schema Validation | ${validateEmoji} ${validateStatus} |
-| Tests | ${testEmoji} ${testStatus} |
-
-### Details
-- All SKILLS.md files validated against schema
-- Quality checks for clarity, duplicates, and metadata
-- Version context preserved
-
-*Validation performed by GitHub Actions*`;
+            const body = [
+              '## 🤖 Skills Validation Results',
+              '',
+              '| Check | Status |',
+              '|------|--------|',
+              `| Schema Validation | ${validateEmoji} ${validateStatus} |`,
+              `| Tests | ${testEmoji} ${testStatus} |`,
+              '',
+              '### Details',
+              '- All SKILLS.md files validated against schema',
+              '- Quality checks for clarity, duplicates, and metadata',
+              '- Version context preserved',
+              '',
+              '*Validation performed by GitHub Actions*'
+            ].join('\n');
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
