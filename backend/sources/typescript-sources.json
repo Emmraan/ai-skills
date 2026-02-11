@@ -1,0 +1,43 @@
+{
+  "skill_name": "typescript",
+  "version": "5.3.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+      "sections": [
+        "The Basics",
+        "Everyday Types",
+        "Narrowing",
+        "More on Functions",
+        "Object Types",
+        "Type Manipulation",
+        "Classes"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html",
+      "sections": ["Do's and Don'ts"]
+    },
+    {
+      "type": "url",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html",
+      "sections": ["Types from Types", "Generics", "Utility Types"]
+    },
+    {
+      "type": "github_releases",
+      "repo": "microsoft/TypeScript",
+      "last_n_releases": 5
+    },
+    {
+      "type": "changelog",
+      "url": "https://raw.githubusercontent.com/microsoft/TypeScript/main/README.md"
+    },
+    {
+      "type": "url",
+      "url": "https://www.typescriptlang.org/tsconfig",
+      "sections": ["Compiler Options", "Type Checking", "Modules", "Interop Constraints"]
+    }
+  ]
+}

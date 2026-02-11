@@ -1,0 +1,62 @@
+{
+  "skill_name": "python",
+  "version": "3.12.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "sections": [
+        "An Informal Introduction to Python",
+        "More Control Flow Tools",
+        "Data Structures",
+        "Modules",
+        "Input and Output",
+        "Errors and Exceptions",
+        "Classes"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://peps.python.org/pep-0008/",
+      "sections": [
+        "Code lay-out",
+        "Blank Lines",
+        "Imports",
+        "Whitespace in Expressions and Statements",
+        "Comments",
+        "Naming Conventions"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://docs.python.org/3/library/index.html",
+      "sections": [
+        "Built-in Functions",
+        "Built-in Types",
+        "Text Processing Services",
+        "Data Types",
+        "Numeric and Mathematical Modules"
+      ]
+    },
+    {
+      "type": "github_releases",
+      "repo": "python/cpython",
+      "last_n_releases": 5
+    },
+    {
+      "type": "changelog",
+      "url": "https://raw.githubusercontent.com/python/cpython/main/NEWS"
+    },
+    {
+      "type": "url",
+      "url": "https://docs.python.org/3/howto/index.html",
+      "sections": [
+        "Argument Passing",
+        "Descriptors",
+        "Functional Programming HOWTO",
+        "Logging HOWTO",
+        "Unicode HOWTO"
+      ]
+    }
+  ]
+}

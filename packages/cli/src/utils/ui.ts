@@ -54,4 +54,3 @@ export const ui = {
     activeSpinner = null;
   },
 };
-
