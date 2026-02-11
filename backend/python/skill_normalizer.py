@@ -46,15 +46,28 @@ Return this JSON:
   "tooling": ["tool1", ...] or []
 }"""
 
-    def __init__(self, config: Optional[Config] = None, verbose: bool = False):
+    def __init__(
+        self,
+        llm: Optional[LLMClient] = None,
+        config: Optional[Config] = None,
+        verbose: bool = False,
+    ):
         """Initialize normalizer.
 
         Args:
-            config: Configuration object
+            llm: Optional LLMClient instance to use (preferred)
+            config: Configuration object (used if `llm` not provided)
             verbose: Print debug information
         """
-        self.config = config or get_config()
-        self.llm = LLMClient(config=config, verbose=verbose)
+        # Prefer an injected LLMClient to avoid reconstructing/overwriting config
+        if llm is not None:
+            self.llm = llm
+            self.config = config or (
+                llm.config if hasattr(llm, "config") else get_config()
+            )
+        else:
+            self.config = config or get_config()
+            self.llm = LLMClient(config=self.config, verbose=verbose)
         self.validator = SkillValidator(verbose=verbose)
         self.verbose = verbose
 
