@@ -8,6 +8,12 @@ on:
       - packages/skills-registry/**/*.md
       - packages/skills-registry/.index.json
       - .github/workflows/validate-skills.yml
+  workflow_dispatch:
+    inputs:
+      skill:
+        description: 'Specific skill to validate (optional, leave empty to validate all)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -28,12 +34,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 10.x
+          version: 10.28.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.14.0
           cache: pnpm
 
       - name: Install dependencies
@@ -41,11 +47,11 @@ jobs:
 
       - name: Validate all skills
         id: validate
-        run: pnpm run validate-all-skills
+        run: pnpm run validate
 
       - name: Run tests
         id: tests
-        run: pnpm test --run
+        run: pnpm --filter=@ai-skills/skills-registry test
         continue-on-error: true
 
       - name: Generate validation report
