@@ -186,18 +186,6 @@ LLM_MODEL=claude-3-5-sonnet-20241022
 GITHUB_TOKEN=ghp_xxxx
 ```
 
-## Project Phases
-
-The implementation is organized into 6 phases (see [plans/PLAN.md](plans/PLAN.md)):
-
-- **Phase 0**: Project scaffolding ✅
-- **Phase 1**: Skills registry & schema ✅
-- **Phase 2**: Backend generator (Python) ✅
-- **Phase 3**: CLI tool (Node.js) ✅
-- **Phase 4**: GitHub Actions automation ✅
-- **Phase 5**: Documentation & examples ✅
-- **Phase 6**: Testing & CI pipeline
-
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
