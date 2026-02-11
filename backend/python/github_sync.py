@@ -157,7 +157,11 @@ class GitHubSync:
             return False
 
         # Ensure git user identity is set (CI runners may not have it)
-        self.run_git_command("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+        self.run_git_command(
+            "config",
+            "user.email",
+            "41898282+github-actions[bot]@users.noreply.github.com",
+        )
         self.run_git_command("config", "user.name", "github-actions[bot]")
 
         # Create meaningful commit message

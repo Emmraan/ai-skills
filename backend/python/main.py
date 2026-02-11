@@ -157,7 +157,9 @@ class SkillRegenerator:
                 source_urls.append(s.get("url"))
             elif stype == "github_file" and s.get("repo") and s.get("path"):
                 branch = s.get("branch", "main")
-                source_urls.append(f"https://raw.githubusercontent.com/{s.get('repo')}/{branch}/{s.get('path')}")
+                source_urls.append(
+                    f"https://raw.githubusercontent.com/{s.get('repo')}/{branch}/{s.get('path')}"
+                )
             elif stype == "github_releases" and s.get("repo"):
                 source_urls.append(f"https://github.com/{s.get('repo')}/releases")
             # ignore unknown types
