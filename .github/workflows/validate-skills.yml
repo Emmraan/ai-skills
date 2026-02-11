@@ -41,7 +41,7 @@ jobs:
 
       - name: Validate all skills
         id: validate
-        run: pnpm run validate-all-skills
+        run: pnpm run validate
 
       - name: Run tests
         id: tests
