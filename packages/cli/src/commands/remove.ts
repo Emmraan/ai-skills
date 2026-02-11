@@ -5,9 +5,11 @@ import {
   updateSkillInstallPathsInLockfile,
 } from '../core/lockfile.js';
 import { AGENT_PLATFORMS, type InstallLocation, type InstallOptions } from '../core/config.js';
-import { error, success, info } from '../utils/logger.js';
+import { error, info, section, highlight } from '../utils/logger.js';
 import { ui } from '../utils/ui.js';
 import inquirer from 'inquirer';
+import chalk from 'chalk';
+import pc from 'picocolors';
 
 export interface CliRemoveFlags {
   local?: boolean;
@@ -145,9 +147,15 @@ async function promptRemoveOptions(): Promise<InstallOptions> {
 
 export async function remove(skillName: string, options: InstallOptions = {}): Promise<boolean> {
   try {
+    section(`Removing ${chalk.bold.cyan(skillName)}`);
+
     const entry = await getSkillEntry(skillName);
     if (!entry) {
+      // eslint-disable-next-line no-console
+      console.log('');
       info(`${skillName} is not installed`);
+      // eslint-disable-next-line no-console
+      console.log('');
       return true;
     }
 
@@ -162,7 +170,33 @@ export async function remove(skillName: string, options: InstallOptions = {}): P
     }
 
     ui.stopSpinnerSuccess(`Removed files for ${skillName}`);
-    success(`Removed ${skillName} from ${removedPaths.length} location(s)`);
+
+    // Print summary
+    // eslint-disable-next-line no-console
+    console.log('');
+    highlight(`✨ Successfully removed ${skillName}`);
+    // eslint-disable-next-line no-console
+    console.log('');
+    // eslint-disable-next-line no-console
+    console.log(pc.gray('Removed from locations:'));
+    removedPaths.forEach((path) => {
+      // eslint-disable-next-line no-console
+      console.log(`  ${pc.red('✗')} ${pc.cyan(path)}`);
+    });
+
+    if (remaining.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log('');
+      // eslint-disable-next-line no-console
+      console.log(pc.gray('Still installed at:'));
+      remaining.forEach((path) => {
+        // eslint-disable-next-line no-console
+        console.log(`  ${pc.green('✓')} ${pc.cyan(path)}`);
+      });
+    }
+    // eslint-disable-next-line no-console
+    console.log('');
+
     return true;
   } catch (err) {
     ui.stopSpinner();

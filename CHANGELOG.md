@@ -7,6 +7,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 ### Added
 
 #### Phase 0: Project Scaffolding
+
 - Monorepo structure with pnpm workspace configuration
 - Root `package.json` with shared dev dependencies
 - Shared TypeScript configuration (`tsconfig.json`)
@@ -17,6 +18,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 - Shared types package (`packages/shared-types/`)
 
 #### Phase 1: Skills Registry & Schema
+
 - SKILLS.md specification (`docs/SKILL_SPEC.md`)
 - Skills registry package (`packages/skills-registry/`)
 - 6 example SKILLS.md files:
@@ -30,6 +32,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 - Validation scripts for skill schema compliance
 
 #### Phase 2: Backend Generator (Python)
+
 - Python backend structure (`backend/python/`)
 - Provider-agnostic LLM client (`llm_client.py`)
 - Source fetcher with multiple source types (`source_fetcher.py`)
@@ -41,6 +44,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 - Requirements file with Python dependencies
 
 #### Phase 3: CLI Tool (TypeScript)
+
 - CLI package (`packages/cli/`)
 - NPX-invocable entry point (`bin/skills.js`)
 - CLI commands:
@@ -62,6 +66,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 - Unit tests for CLI commands and core modules
 
 #### Phase 4: GitHub Actions Automation
+
 - Generate skills workflow (`.github/workflows/generate-skills.yml`)
   - Weekly scheduled execution (Sunday 00:00 UTC)
   - Manual trigger support with optional skill parameter
@@ -79,6 +84,7 @@ All notable changes to the AI-Skills project will be documented in this file.
 - GitHub Secrets configuration guidance
 
 #### Phase 5: Documentation & Examples
+
 - Architecture documentation (`docs/ARCHITECTURE.md`)
   - System diagram with Mermaid visualization
   - Component interaction flows
@@ -145,14 +151,14 @@ npx @emmraan/ai-skills remove react
 
 ### Supported Skills
 
-| Skill | Version | Domains |
-|-------|---------|---------|
-| React | 18.2.0 | frontend, ui, frameworks |
-| Vue | 3.4.0 | frontend, ui, frameworks |
-| Python | 3.12.0 | backend, scripting, data |
-| TypeScript | 5.3.0 | frontend, backend, types |
-| Node.js | 20.10.0 | backend, runtime, server |
-| Testing | 1.0.0 | testing, quality, ci |
+| Skill      | Version | Domains                  |
+| ---------- | ------- | ------------------------ |
+| React      | 18.2.0  | frontend, ui, frameworks |
+| Vue        | 3.4.0   | frontend, ui, frameworks |
+| Python     | 3.12.0  | backend, scripting, data |
+| TypeScript | 5.3.0   | frontend, backend, types |
+| Node.js    | 20.10.0 | backend, runtime, server |
+| Testing    | 1.0.0   | testing, quality, ci     |
 
 ### Supported LLM Providers
 

@@ -36,6 +36,9 @@ importers:
       ora:
         specifier: ^8.2.0
         version: 8.2.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       '@ai-skills/shared-types':
         specifier: workspace:*

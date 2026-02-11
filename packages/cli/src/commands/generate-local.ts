@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import { resolve } from 'path';
-import { error, info, success } from '../utils/logger.js';
+import { error, info, section, highlight } from '../utils/logger.js';
+import pc from 'picocolors';
 
 export async function generateLocal(skill?: string): Promise<boolean> {
   const backendDir = resolve(process.cwd(), 'backend');
@@ -11,7 +12,15 @@ export async function generateLocal(skill?: string): Promise<boolean> {
     args.push('--', '--skill', skill);
   }
 
-  info(`Running local generator in ${backendDir}...`);
+  section(`Running Local Generator`);
+  // eslint-disable-next-line no-console
+  console.log('');
+  info(`Backend directory: ${pc.cyan(backendDir)}`);
+  if (skill) {
+    info(`Skill: ${pc.cyan(skill)}`);
+  }
+  // eslint-disable-next-line no-console
+  console.log('');
 
   return new Promise((resolvePromise) => {
     const child = spawn(command, args, {
@@ -26,11 +35,17 @@ export async function generateLocal(skill?: string): Promise<boolean> {
     });
 
     child.on('exit', (code) => {
+      // eslint-disable-next-line no-console
+      console.log('');
       if (code === 0) {
-        success('Local generation completed successfully');
+        highlight('✨ Local generation completed successfully');
+        // eslint-disable-next-line no-console
+        console.log('');
         resolvePromise(true);
       } else {
         error(`Local generation failed with exit code ${code ?? -1}`);
+        // eslint-disable-next-line no-console
+        console.log('');
         resolvePromise(false);
       }
     });

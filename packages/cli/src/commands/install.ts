@@ -3,9 +3,11 @@ import { installSkill } from '../core/installer.js';
 import { addSkillToLockfile } from '../core/lockfile.js';
 import { AGENT_PLATFORMS, type InstallOptions, type InstallLocation } from '../core/config.js';
 import { sha256 } from '../utils/hash.js';
-import { error, success } from '../utils/logger.js';
+import { error, highlight, section } from '../utils/logger.js';
 import inquirer from 'inquirer';
 import { ui } from '../utils/ui.js';
+import chalk from 'chalk';
+import pc from 'picocolors';
 
 export interface CliInstallFlags {
   local?: boolean;
@@ -145,6 +147,8 @@ async function promptInstallOptions(): Promise<InstallOptions> {
 
 export async function install(skillName: string, options: InstallOptions = {}): Promise<boolean> {
   try {
+    section(`Installing ${chalk.bold.cyan(skillName)}`);
+
     ui.startSpinner(`Fetching ${skillName}...`);
     const skillContent = await fetchSkill(skillName);
     ui.stopSpinnerSuccess(`Fetched ${skillName}`);
@@ -164,8 +168,22 @@ export async function install(skillName: string, options: InstallOptions = {}): 
     const skillVersion = index.skills[skillName]?.version || 'unknown';
 
     await addSkillToLockfile(skillName, skillVersion, hash, installPaths);
-    ui.stopSpinnerSuccess(`Updated lockfile for ${skillName}`);
-    success(`Installed ${skillName} (${skillVersion}) to ${installPaths.length} location(s)`);
+    ui.stopSpinnerSuccess(`Updated lockfile`);
+
+    // eslint-disable-next-line no-console
+    console.log('');
+    highlight(`✨ Successfully installed ${skillName} (v${skillVersion})`);
+    // eslint-disable-next-line no-console
+    console.log('');
+    // eslint-disable-next-line no-console
+    console.log(pc.gray('Location summary:'));
+    installPaths.forEach((path) => {
+      // eslint-disable-next-line no-console
+      console.log(`  ${pc.green('→')} ${pc.cyan(path)}`);
+    });
+    // eslint-disable-next-line no-console
+    console.log('');
+
     return true;
   } catch (err) {
     ui.stopSpinner();

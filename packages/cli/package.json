@@ -1,6 +1,6 @@
 {
   "name": "@emmraan/ai-skills",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CLI tool for installing AI Skills across agent platforms",
   "type": "module",
   "license": "MIT",
@@ -28,19 +28,21 @@
     "build": "tsc --project tsconfig.json",
     "dev": "tsx src/bin/skills.ts",
     "test": "vitest run",
-    "lint": "node -e \"process.exit(0)\"",
+    "lint": "eslint . --ext .ts,.js --config .eslintrc.cjs",
     "typecheck": "tsc --noEmit --project tsconfig.json",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "chalk": "^5.4.1",
     "inquirer": "^12.9.6",
-    "ora": "^8.2.0"
+    "ora": "^8.2.0",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
     "@ai-skills/shared-types": "workspace:*",
     "@types/node": "^20.10.0",
     "tsx": "^4.7.0",
-    "vitest": "^1.1.0"
+    "vitest": "^1.1.0",
+    "eslint": "^8.45.0"
   }
 }
