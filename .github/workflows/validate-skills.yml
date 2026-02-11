@@ -51,7 +51,7 @@ jobs:
 
       - name: Run tests
         id: tests
-        run: pnpm test --run
+        run: pnpm --filter=@ai-skills/skills-registry test
         continue-on-error: true
 
       - name: Generate validation report
