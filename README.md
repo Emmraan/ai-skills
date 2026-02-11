@@ -20,7 +20,7 @@
 ### Installation
 
 ```bash
-npm install -g ai-skills
+npm install -g @emmraan/ai-skills
 # or
 npx @emmraan/ai-skills list
 ```
