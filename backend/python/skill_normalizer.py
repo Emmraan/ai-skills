@@ -141,9 +141,10 @@ Generate normalized JSON for {skill_name}."""
         if sources and isinstance(sources, list) and len(sources) > 0:
             normalized["sources"] = sources
         else:
-            # crude URL extraction
+            # crude URL extraction - ensure content is a string
             urls = []
-            for part in content.split():
+            content_text = content if isinstance(content, str) else json.dumps(content)
+            for part in content_text.split():
                 if part.startswith("http://") or part.startswith("https://"):
                     urls.append(part.strip().strip(".,;"))
             # fallback to empty list (validator will catch missing sources)
