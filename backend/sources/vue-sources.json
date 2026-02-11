@@ -1,0 +1,47 @@
+{
+  "skill_name": "vue",
+  "version": "3.4.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://vuejs.org/guide/introduction.html",
+      "sections": [
+        "Essentials",
+        "Components In-Depth",
+        "Reactivity Fundamentals",
+        "Computed Properties",
+        "Class and Style Bindings",
+        "Conditional Rendering",
+        "List Rendering"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://vuejs.org/guide/best-practices/performance.html",
+      "sections": ["Performance", "Production Deployment", "Optimization"]
+    },
+    {
+      "type": "url",
+      "url": "https://vuejs.org/style-guide/",
+      "sections": [
+        "Priority A Rules: Essential",
+        "Priority B Rules: Strongly Recommended",
+        "Priority C Rules: Recommended"
+      ]
+    },
+    {
+      "type": "github_releases",
+      "repo": "vuejs/core",
+      "last_n_releases": 5
+    },
+    {
+      "type": "changelog",
+      "url": "https://raw.githubusercontent.com/vuejs/core/main/CHANGELOG.md"
+    },
+    {
+      "type": "url",
+      "url": "https://vuejs.org/api/",
+      "sections": ["Application API", "Composition API", "Reactivity API", "Lifecycle Hooks"]
+    }
+  ]
+}

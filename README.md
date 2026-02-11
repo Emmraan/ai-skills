@@ -195,12 +195,12 @@ The implementation is organized into 6 phases (see [plans/PLAN.md](plans/PLAN.md
 - **Phase 2**: Backend generator (Python) ✅
 - **Phase 3**: CLI tool (Node.js) ✅
 - **Phase 4**: GitHub Actions automation ✅
-- **Phase 5**: Documentation & examples
+- **Phase 5**: Documentation & examples ✅
 - **Phase 6**: Testing & CI pipeline
 
 ## Contributing
 
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines on:
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 - Adding new skills
 - Creating source descriptors
@@ -216,3 +216,5 @@ MIT
 - 📖 [Architecture Overview](docs/ARCHITECTURE.md)
 - 🔧 [Extension Guide](docs/EXTENDING.md)
 - 📋 [SKILLS.md Specification](docs/SKILL_SPEC.md)
+- 📝 [Example React Skill](docs/EXAMPLE_REACT_SKILL.md)
+- 🤝 [Contributing Guidelines](CONTRIBUTING.md)

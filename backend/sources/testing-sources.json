@@ -1,0 +1,48 @@
+{
+  "skill_name": "testing",
+  "version": "1.0.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://jestjs.io/docs/getting-started",
+      "sections": [
+        "Using Matchers",
+        "Testing Asynchronous Code",
+        "Mock Functions",
+        "Snapshot Testing",
+        "Timer Mocks"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://vitest.dev/guide/",
+      "sections": ["Why Vitest", "Features", "Test Context", "Mocking", "Coverage"]
+    },
+    {
+      "type": "url",
+      "url": "https://docs.pytest.org/en/stable/",
+      "sections": [
+        "Getting Started",
+        "How to invoke pytest",
+        "How to write and report assertions",
+        "Parametrizing tests",
+        "Fixtures"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://testing-library.com/docs/",
+      "sections": ["Introduction", "Guiding Principles", "Common mistakes", "Queries"]
+    },
+    {
+      "type": "github_releases",
+      "repo": "jestjs/jest",
+      "last_n_releases": 3
+    },
+    {
+      "type": "url",
+      "url": "https://github.com/goldbergyoni/javascript-testing-best-practices",
+      "sections": ["Test structure", "Test naming", "Test independence", "Test coverage"]
+    }
+  ]
+}

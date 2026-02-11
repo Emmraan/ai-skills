@@ -1,0 +1,41 @@
+{
+  "skill_name": "nodejs",
+  "version": "20.10.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://nodejs.org/en/docs/guides/",
+      "sections": [
+        "Don't block the Event Loop",
+        "Backpressuring in Streams",
+        "Writing asynchronous code",
+        "Event Loop Timers",
+        "Security Best Practices"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://nodejs.org/api/",
+      "sections": ["Events", "Stream", "File System", "HTTP", "Path", "Crypto", "Worker Threads"]
+    },
+    {
+      "type": "url",
+      "url": "https://nodejs.org/en/docs/es6/",
+      "sections": ["ECMAScript 2015 (ES6) and beyond"]
+    },
+    {
+      "type": "github_releases",
+      "repo": "nodejs/node",
+      "last_n_releases": 5
+    },
+    {
+      "type": "changelog",
+      "url": "https://raw.githubusercontent.com/nodejs/node/main/CHANGELOG.md"
+    },
+    {
+      "type": "url",
+      "url": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs",
+      "sections": ["Introduction to Node.js", "How Node.js works", "Node.js vs other runtimes"]
+    }
+  ]
+}

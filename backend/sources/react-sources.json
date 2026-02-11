@@ -1,0 +1,50 @@
+{
+  "skill_name": "react",
+  "version": "18.2.0",
+  "sources": [
+    {
+      "type": "url",
+      "url": "https://react.dev/learn",
+      "sections": [
+        "Describing the UI",
+        "Adding Interactivity",
+        "Managing State",
+        "Escaping the Sandbox",
+        "Your First Component",
+        "Thinking in React"
+      ]
+    },
+    {
+      "type": "url",
+      "url": "https://react.dev/reference/rules",
+      "sections": [
+        "Rules of Hooks",
+        "Components and Hooks must be pure",
+        "React calls Components and Hooks"
+      ]
+    },
+    {
+      "type": "github_releases",
+      "repo": "facebook/react",
+      "last_n_releases": 5
+    },
+    {
+      "type": "changelog",
+      "url": "https://raw.githubusercontent.com/facebook/react/main/CHANGELOG.md"
+    },
+    {
+      "type": "url",
+      "url": "https://react.dev/reference/react",
+      "sections": [
+        "useState",
+        "useEffect",
+        "useContext",
+        "useReducer",
+        "useCallback",
+        "useMemo",
+        "useRef",
+        "useLayoutEffect"
+      ]
+    }
+  ]
+}
