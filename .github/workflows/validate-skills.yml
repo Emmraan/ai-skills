@@ -8,6 +8,12 @@ on:
       - packages/skills-registry/**/*.md
       - packages/skills-registry/.index.json
       - .github/workflows/validate-skills.yml
+  workflow_dispatch:
+    inputs:
+      skill:
+        description: 'Specific skill to validate (optional, leave empty to validate all)'
+        required: false
+        type: string
 
 permissions:
   contents: read
