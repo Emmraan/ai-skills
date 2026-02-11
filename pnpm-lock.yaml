@@ -52,6 +52,9 @@ importers:
       vitest:
         specifier: ^1.1.0
         version: 1.6.1(@types/node@20.19.32)
+      eslint:
+        specifier: ^8.45.0
+        version: 8.57.1
 
   packages/shared-types: {}
 
