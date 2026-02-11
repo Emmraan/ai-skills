@@ -141,6 +141,27 @@ class SkillRegenerator:
             self.stats["skipped"] += 1
             return True
 
+        # Normalize source descriptor into a list of source URL strings
+        source_urls = []
+        raw_sources = source_descriptor.get("sources", [])
+        for s in raw_sources:
+            if isinstance(s, str):
+                source_urls.append(s)
+                continue
+
+            if not isinstance(s, dict):
+                continue
+
+            stype = s.get("type", "")
+            if stype == "url" and s.get("url"):
+                source_urls.append(s.get("url"))
+            elif stype == "github_file" and s.get("repo") and s.get("path"):
+                branch = s.get("branch", "main")
+                source_urls.append(f"https://raw.githubusercontent.com/{s.get('repo')}/{branch}/{s.get('path')}")
+            elif stype == "github_releases" and s.get("repo"):
+                source_urls.append(f"https://github.com/{s.get('repo')}/releases")
+            # ignore unknown types
+
         # Fetch source content
         try:
             content = self.fetcher.fetch_sources(skill_name)
@@ -177,7 +198,7 @@ class SkillRegenerator:
                 diff,
                 skill_name,
                 skill_version,
-                sources=source_descriptor.get("sources", []),
+                sources=source_urls,
             )
         except Exception as e:
             self.log(f"Failed to normalize {skill_name}: {e}", "[Error]")
@@ -206,7 +227,7 @@ class SkillRegenerator:
             return False
 
         # Commit to git
-        sources = source_descriptor.get("sources", [])
+        sources = source_urls
 
         if not self.dry_run and not self.git.commit_skill(skill_name, sources):
             self.log(f"Failed to commit {skill_name}", "[Git]")
