@@ -177,6 +177,7 @@ class SkillRegenerator:
                 diff,
                 skill_name,
                 skill_version,
+                sources=source_descriptor.get("sources", []),
             )
         except Exception as e:
             self.log(f"Failed to normalize {skill_name}: {e}", "[Error]")
@@ -191,7 +192,7 @@ class SkillRegenerator:
             return False
 
         # Validate
-        is_valid, errors = self.validator.validate_skill(normalized)
+        is_valid, errors, warnings = self.validator.validate_skill(normalized)
 
         if not is_valid:
             self.log(f"Validation failed for {skill_name}: {errors[0]}", "[Error]")
