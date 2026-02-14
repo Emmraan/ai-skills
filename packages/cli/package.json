@@ -1,6 +1,6 @@
 {
   "name": "@emmraan/ai-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI tool for installing AI Skills across agent platforms",
   "type": "module",
   "license": "MIT",

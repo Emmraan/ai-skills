@@ -3,6 +3,7 @@ import { remove, parseRemoveFlags, resolveRemoveOptionsFromFlags } from './comma
 import { list } from './commands/list.js';
 import { update } from './commands/update.js';
 import { generateLocal } from './commands/generate-local.js';
+import { search, parseSearchFlags } from './commands/search.js';
 import { error, info } from './utils/logger.js';
 import { ui } from './utils/ui.js';
 
@@ -34,6 +35,11 @@ export async function main(): Promise<void> {
     } else if (command === 'list') {
       const jsonFlag = args.includes('--json');
       await list(jsonFlag);
+      process.exit(0);
+    } else if (command === 'search' && args.length >= 2) {
+      const query = args[1];
+      const flags = parseSearchFlags(args.slice(2));
+      await search(query, flags);
       process.exit(0);
     } else if (command === 'update') {
       const forceFlag = args.includes('--force');
@@ -70,11 +76,12 @@ AI Skills CLI - Install framework-agnostic SKILLS.md files
 Usage:
   ai-skills <skill> [options]              Install a skill
   ai-skills install <skill> [options]      Install a skill
-  ai-skills list [--json]        List installed and available skills
-  ai-skills remove <skill> [options]   Remove an installed skill
-  ai-skills update [--force]     Update all installed skills
-                  [--skill <name>]   Update a specific skill
-  ai-skills generate-local [skill]    Run local backend generator
+  ai-skills list [--json]                  List installed and available skills
+  ai-skills search <query> [options]       Search for skills
+  ai-skills remove <skill> [options]       Remove an installed skill
+  ai-skills update [--force]               Update all installed skills
+                  [--skill <name>]         Update a specific skill
+  ai-skills generate-local [skill]         Run local backend generator
 
 Install options:
   --local                         Install in current project (.ai-skills/skills)
@@ -88,12 +95,19 @@ Remove options:
   --all                           Remove from all platforms for selected scope
   --platform <a,b,c>              Remove from selected platforms for selected scope
 
+Search options:
+  --domain <name>                 Filter results by domain
+  --json                          Output results as JSON
+
 Examples:
   ai-skills react
   ai-skills react --local
   ai-skills react --platform claude,gemini,opencode,vscode,codex,agents
   ai-skills install typescript
   ai-skills list
+  ai-skills search react
+  ai-skills search "testing" --domain frontend
+  ai-skills search python --json
   ai-skills remove python
   ai-skills update --force
   ai-skills update --skill react

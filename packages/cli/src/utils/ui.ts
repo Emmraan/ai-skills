@@ -67,6 +67,7 @@ export const ui = {
   printBox(content: string[], title?: string): void {
     // eslint-disable-next-line no-control-regex
     const maxLength = Math.max(
+      // eslint-disable-next-line no-control-regex
       ...content.map((line) => line.replace(/\u001b\[[0-9;]*m/g, '').length)
     );
     const width = Math.min(maxLength + 4, 70);

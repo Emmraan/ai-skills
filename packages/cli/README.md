@@ -4,18 +4,7 @@ Install framework-agnostic `SKILLS.md` files for AI agents.
 
 ## Usage
 
-- `npx @emmraan/ai-skills react` - Install React skill
-- `npx @emmraan/ai-skills install react` - Install React skill (explicit command)
-- `npx @emmraan/ai-skills react --local` - Install to local project (`process.cwd()`)
-- `npx @emmraan/ai-skills react --platform claude,gemini` - Install globally to selected platforms
-- `npx @emmraan/ai-skills react --local --platform claude,gemini` - Install locally to selected platforms
-- `npx @emmraan/ai-skills react --global --all` - Install globally to all platforms
-- `npx @emmraan/ai-skills list` - List available and installed skills
-- `npx @emmraan/ai-skills update` - Update all installed skills
-- `npx @emmraan/ai-skills remove react` - Remove React skill
-- `npx @emmraan/ai-skills remove react --local --platform claude` - Remove from selected local platforms
-- `npx @emmraan/ai-skills remove react --global --all` - Remove from all global platforms
-- `npx @emmraan/ai-skills generate-local` - Run local backend generator
+- `npx @emmraan/ai-skills --help` to view all commands.
 
 ## Interactive flow
 
