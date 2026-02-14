@@ -31,32 +31,8 @@ npx @emmraan/ai-skills list
 # Install a skill
 npx @emmraan/ai-skills react
 
-# Install to local project only (uses process.cwd())
-npx @emmraan/ai-skills react --local
-
-# Install globally to selected platforms only
-npx @emmraan/ai-skills react --platform claude,gemini
-
-# Install globally to all platforms
-npx @emmraan/ai-skills react --global --all
-
-# Instal locally for selected platform
-npx @emmraan/ai-skills react --local --platform claude
-
-# List all available skills
-npx @emmraan/ai-skills list
-
-# Update all installed skills
-npx @emmraan/ai-skills update
-
-# Remove a skill
-npx @emmraan/ai-skills remove react
-
-# Remove from local selected platforms
-npx @emmraan/ai-skills remove react --local --platform claude
-
-# Remove from global all platforms
-npx @emmraan/ai-skills remove react --global --all
+# To view all commands
+npx @emmraan/ai-skills --help
 ```
 
 ### Interactive CLI flow
